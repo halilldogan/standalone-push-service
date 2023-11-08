@@ -1,0 +1,31 @@
+spring:
+  application.name: push
+
+server:
+  port: 8080
+
+management:
+  health.redis.enabled: true
+  endpoint:
+    health:
+      showDetails: always
+      default: diskSpace, ping
+      group:
+        liveness:
+          include: ${management.endpoint.health.default}
+        readiness:
+          include: ${management.endpoint.health.default}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics.tags.application: ${spring.application.name}
+
+springdoc:
+  swagger-ui.path: /
+
+apns:
+  keyId: <apns-keyId>
+  teamId: <apns-teamId>
+  topic: apns.topic
+  authKeyPath: <authKeyPath>
